@@ -1,3 +1,4 @@
+
 name: PHP Composer
 
 on:
@@ -16,9 +17,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Check PHP Version
+      run: php -v
+
+    - name: Check Composer Version
+      run: composer -V
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
+
+
 
     - name: Cache Composer packages
       id: composer-cache
@@ -34,6 +43,3 @@ jobs:
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    # - name: Run test suite
-    #   run: composer run-script test
