@@ -30,18 +30,3 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Deploy to server
-        env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        run: |
-          ssh -i $DEPLOY_KEY $DEPLOY_USER@$DEPLOY_HOST "cd /path/to/wordpress && git pull && composer install"
